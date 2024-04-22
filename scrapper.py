@@ -90,6 +90,17 @@ def refresh_the_page(monsta_number: int, wait: WebDriverWait, driver: WebDriver)
     wait.until(ec.presence_of_element_located((By.XPATH, "//*[contains(@class, 'leading-6 mb-3')]")))
 
 
+def write_to_parquet(monsters: pd.DataFrame) -> None:
+    """Write scrapped data to parquet."""
+    directory = f"data/{pd.to_datetime('now').strftime('%Y-%m-%d')}"
+    if not os.path.exists(directory):
+        os.mkdir(directory)
+    else:
+        print("Directory already exists.")
+
+    monsters.to_parquet(f"{directory}/ram.parquet")
+
+
 def execute_scraping(driver: WebDriver, parser: HTMLParser, range_start: int, range_end: int) -> None:
     """Execute scrapping."""
     _monsters = []
@@ -122,13 +133,7 @@ def execute_scraping(driver: WebDriver, parser: HTMLParser, range_start: int, ra
     monsters: pd.DataFrame = pd.DataFrame(_monsters)
     print(monsters.head())
 
-    directory = f"data/{pd.to_datetime('now').strftime('%Y-%m-%d')}"
-    if not os.path.exists(directory):
-        os.mkdir(directory)
-    else:
-        print("Directory already exists.")
-
-    monsters.to_parquet(f"{directory}/ram.parquet")
+    write_to_parquet(monsters)
 
 
 if __name__ == "__main__":
