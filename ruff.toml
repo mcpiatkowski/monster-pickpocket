@@ -1,0 +1,23 @@
+line-length=120
+
+[lint]
+select = [
+    "F",  # Pyflakes
+    "E",  # pycodestyle
+    "W",  # pycodestyle
+    "I",  # isort
+    "N",  # pep8-naming
+    "D",  # pydocstyle
+    "UP",  # pyupgrade
+    "ANN",  # flake8-annotations
+    "B",  # flake8-bugbear
+    "SIM",  # flake8-simplify
+    "PD",  # pandas
+    "R",  # refactor
+    "NPY"  # numpy
+]
+
+ignore = [
+    "D203",  # one-blank-line-before-class
+    "D213",  # multi-line-summary-second-line
+]
